@@ -74,6 +74,10 @@
         var svg = wrapper && wrapper.querySelector('svg');
         if (!svg) return;
 
+        /* Disable anti-aliasing so the 1x1 module rects don't show hairline
+           gaps when scaled to non-integer pixel sizes. */
+        svg.setAttribute('shape-rendering', 'crispEdges');
+
         var row = document.createElement('div');
         row.className = 'sg-qr-download';
 

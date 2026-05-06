@@ -120,6 +120,13 @@ button {
   color: var(--sg-cream);
 }
 
+/* QR dialog: crisp module rendering (kills hairline gaps from anti-aliasing
+   of 1x1 rect modules at non-integer pixel sizes). Belt-and-suspenders with
+   the JS attribute set in layout.hbs override. */
+.dialog.qrcode svg {
+  shape-rendering: crispEdges;
+}
+
 /* QR dialog download button row (injected by layout.hbs override). */
 .sg-qr-download {
   display: flex;
