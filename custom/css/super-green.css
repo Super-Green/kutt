@@ -120,6 +120,19 @@ button {
   color: var(--sg-cream);
 }
 
+/* QR dialog download button row (injected by layout.hbs override). */
+.sg-qr-download {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+.sg-qr-download .button {
+  height: 36px;
+  padding: 0 18px;
+  font-size: 12px;
+}
+
 /* Subtle brand mark — magenta underline on primary links/anchors */
 a {
   color: var(--sg-purple);

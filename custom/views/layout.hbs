@@ -57,5 +57,87 @@
     });
   </script>
   <script src="/scripts/main.js"></script>
+  <script>
+    /* Add Download SVG / Download PNG buttons under the QR.
+       We can't override /scripts/main.js via custom/, so we wrap the global
+       handleQRCode after main.js has defined it. The wrapper calls the
+       original (which clears .content-wrapper and renders the SVG), then
+       appends a button row inside the same wrapper. */
+    (function () {
+      var original = window.handleQRCode;
+      if (typeof original !== 'function') return;
+
+      window.handleQRCode = function (element, id) {
+        original.apply(this, arguments);
+        var dialog = document.getElementById(id);
+        var wrapper = dialog && dialog.querySelector('.content-wrapper');
+        var svg = wrapper && wrapper.querySelector('svg');
+        if (!svg) return;
+
+        var row = document.createElement('div');
+        row.className = 'sg-qr-download';
+
+        var dlSvg = document.createElement('button');
+        dlSvg.type = 'button';
+        dlSvg.className = 'button primary';
+        dlSvg.textContent = 'Download SVG';
+        dlSvg.addEventListener('click', function () { downloadSvg(svg, element.dataset.url); });
+
+        var dlPng = document.createElement('button');
+        dlPng.type = 'button';
+        dlPng.className = 'button';
+        dlPng.textContent = 'Download PNG';
+        dlPng.addEventListener('click', function () { downloadPng(svg, element.dataset.url); });
+
+        row.appendChild(dlSvg);
+        row.appendChild(dlPng);
+        wrapper.appendChild(row);
+      };
+
+      function filenameFor(url) {
+        try {
+          var u = new URL(url);
+          var slug = (u.hostname + u.pathname).replace(/[^a-z0-9.-]+/gi, '-').replace(/^-|-$/g, '');
+          return 'qr-' + (slug || 'code');
+        } catch (e) { return 'qr-code'; }
+      }
+
+      function downloadSvg(svg, url) {
+        var xml = new XMLSerializer().serializeToString(svg);
+        var blob = new Blob([xml], { type: 'image/svg+xml' });
+        triggerDownload(URL.createObjectURL(blob), filenameFor(url) + '.svg', true);
+      }
+
+      function downloadPng(svg, url) {
+        var xml = new XMLSerializer().serializeToString(svg);
+        var src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(xml)));
+        var img = new Image();
+        img.onload = function () {
+          var SIZE = 512;
+          var canvas = document.createElement('canvas');
+          canvas.width = SIZE;
+          canvas.height = SIZE;
+          var ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, SIZE, SIZE);
+          ctx.drawImage(img, 0, 0, SIZE, SIZE);
+          canvas.toBlob(function (blob) {
+            triggerDownload(URL.createObjectURL(blob), filenameFor(url) + '.png', true);
+          }, 'image/png');
+        };
+        img.src = src;
+      }
+
+      function triggerDownload(href, filename, revoke) {
+        var a = document.createElement('a');
+        a.href = href;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        if (revoke) setTimeout(function () { URL.revokeObjectURL(href); }, 200);
+      }
+    })();
+  </script>
 </body>
 </html>
