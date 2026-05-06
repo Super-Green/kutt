@@ -1,0 +1,122 @@
+/* ============================================================================
+   Super Green branding for Kutt
+   ----------------------------------------------------------------------------
+   Loaded ADDITIVELY after Kutt's default /css/styles.css (since this file is
+   not named "styles.css", Kutt picks it up via the custom_styles mechanism).
+
+   Strategy: override Kutt's :root CSS variables to remap its existing
+   component CSS to Super Green's palette. Add small typographic + radius
+   adjustments. Do NOT replicate Kutt's component rules.
+
+   Brand reference: sg-ui-kit (lib/brand-tokens.ts)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Epilogue:wght@600;700&display=swap');
+
+:root {
+  /* Surfaces */
+  --bg-color: #F9F3EB;                       /* Light Cream */
+  --table-bg-color: #F0E0CC;                 /* Cream */
+  --table-tr-hover-bg-color: #FFFFFF;
+  --table-tr-border-color: rgba(26, 26, 51, 0.08);
+  --table-head-tr-border-color: rgba(26, 26, 51, 0.16);
+  --table-status-gray-bg-color: #F0E0CC;
+  --table-shadow-color: rgba(26, 26, 51, 0.08);
+
+  /* Text */
+  --text-color: #1A1A33;                     /* Purple */
+  --secondary-text-color: rgba(26, 26, 51, 0.6);
+  --underline-color: rgba(251, 33, 133, 0.5);
+  --input-label-color: #1A1A33;
+
+  /* Brand color drivers */
+  --color-primary: #FB2185;                  /* Magenta — signature */
+  --outline-color: #FB2185;
+  --focus-outline-color: rgba(251, 33, 133, 0.45);
+  --checkbox-bg-color: #FB2185;
+
+  /* Buttons — secondary (default) becomes deep purple, primary stays magenta,
+     success picks up neon accent */
+  --button-bg: linear-gradient(to right, #1A1A33, #2a2a4d);
+  --button-bg-box-shadow-color: rgba(26, 26, 51, 0.35);
+
+  --button-bg-primary: linear-gradient(to right, #FB2185, #d61770);
+  --button-bg-primary-box-shadow-color: rgba(251, 33, 133, 0.45);
+
+  --button-bg-secondary: linear-gradient(to right, #40226E, #1A1A33);
+  --button-bg-secondary-box-shadow-color: rgba(64, 34, 110, 0.45);
+
+  --button-bg-danger: linear-gradient(to right, #F9562B, #ca3f1a);
+  --button-bg-danger-box-shadow-color: rgba(249, 86, 43, 0.45);
+
+  --button-bg-success: linear-gradient(to right, #BCF400, #8fbf00);
+  --button-bg-success-box-shadow-color: rgba(188, 244, 0, 0.45);
+
+  --button-action-shadow-color: rgba(26, 26, 51, 0.1);
+
+  /* Status / icon accents */
+  --send-icon-hover-color: #FB2185;
+  --send-spinner-icon-color: rgba(26, 26, 51, 0.45);
+  --success-icon-color: #009250;             /* dark-green */
+  --error-icon-color: #F9562B;               /* orange */
+  --copy-icon-color: #FB2185;
+  --copy-icon-bg-color: rgba(251, 33, 133, 0.08);
+  --copy-icon-shadow-color: rgba(251, 33, 133, 0.18);
+
+  /* Inputs */
+  --input-shadow-color: rgba(26, 26, 51, 0.1);
+  --input-hover-shadow-color: rgba(26, 26, 51, 0.2);
+
+  /* Custom: Super Green specific (not consumed by Kutt's default CSS, but
+     available if you write more rules below or in additional files) */
+  --sg-radius: 0.875rem;                     /* 14px */
+  --sg-magenta: #FB2185;
+  --sg-cream: #F9F3EB;
+  --sg-cream-warm: #F0E0CC;
+  --sg-purple: #1A1A33;
+  --sg-purple-deep: #40226E;
+  --sg-neon: #BCF400;
+  --sg-orange: #F9562B;
+}
+
+/* Typography swap — keep Kutt's sizes/leading, swap the family.
+   Kutt's body uses font: 16px/1.45 'Nunito', sans-serif; we override the
+   family while preserving everything else. */
+body,
+input,
+button,
+select,
+textarea {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Epilogue', 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Round things to brand radius. Kutt uses arbitrary radii throughout; we
+   nudge a handful of common surfaces. Add more selectors here as needed. */
+button,
+.button,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="url"],
+input[type="number"],
+.card,
+.modal,
+table {
+  border-radius: var(--sg-radius);
+}
+
+/* Subtle brand mark — magenta underline on primary links/anchors */
+a {
+  color: var(--sg-purple);
+  text-decoration-color: var(--sg-magenta);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+a:hover {
+  color: var(--sg-magenta);
+}
