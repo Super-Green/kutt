@@ -110,6 +110,16 @@ table {
   border-radius: var(--sg-radius);
 }
 
+/* Default (cancel/close) button text — Kutt hardcodes color:#444 on the
+   default button rule, but our --button-bg is now a dark purple gradient.
+   Override to cream for legibility. The .primary/.secondary/.danger/.success
+   variants explicitly set color:white at higher specificity, so they're
+   unaffected. */
+a.button,
+button {
+  color: var(--sg-cream);
+}
+
 /* Subtle brand mark — magenta underline on primary links/anchors */
 a {
   color: var(--sg-purple);
