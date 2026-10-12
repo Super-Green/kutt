@@ -368,6 +368,8 @@ function getUseragentBrowser(agent) {
     return "opera";
   else if (agent.isEdge)
     return "edge";
+  else if (agent.isSafari)
+    return "safari";
   else
     return "other";
 }

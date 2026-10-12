@@ -137,7 +137,7 @@ You can use files for each of the variables by appending `_FILE` to the name of 
 | `MAIL_SECURE` | Whether use SSL for the email server connection | `false` | `true` | 
 | `OIDC_ENABLED` | Enable OpenID Connect | `false` | `true` | 
 | `OIDC_ISSUER` | OIDC issuer URL | - | `https://example.com/some/path` | 
-| `OIDC_POMPT` | OIDC prompt | - | `login` | 
+| `OIDC_PROMPT` | OIDC prompt | - | `login` | 
 | `OIDC_CLIENT_ID` | OIDC client id | - | `example-app` | 
 | `OIDC_CLIENT_SECRET` | OIDC client secret | - | `some-secret` | 
 | `OIDC_SCOPE` | OIDC Scope | `openid profile email` | `openid email` | 
