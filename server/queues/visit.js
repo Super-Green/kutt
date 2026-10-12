@@ -12,7 +12,7 @@ module.exports = function({ data }) {
   
   // the following line is for backward compatibility
   // used to send the whole header to get the user agent
-  const userAgent = data.userAgent || data.headers?.["user-agent"];
+  const userAgent = data.userAgent || data.headers?.["user-agent"] || "";
   const agent = useragent.parse(userAgent);
   const browser = getUseragentBrowser(agent);
   const os = getUseragentOS(agent);
